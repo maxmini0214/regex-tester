@@ -20,6 +20,7 @@
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://maxmini0214.github.io/regex-tester/">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"RegexLab","url":"https://maxmini0214.github.io/regex-tester/","description":"Test, debug, and learn regular expressions in real-time with match highlighting and group captures. 100% client-side.","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is a regex tester?","acceptedAnswer":{"@type":"Answer","text":"A regex tester lets you write regular expressions and instantly see matches against test text. RegexLab highlights matches in real-time, shows capture groups, and runs 100% in your browser — no data is sent to any server."}},{"@type":"Question","name":"How do regex flags work?","acceptedAnswer":{"@type":"Answer","text":"Regex flags modify how the pattern is applied. 'g' (global) finds all matches, 'i' (case-insensitive) ignores case, 'm' (multiline) treats each line separately, 's' (dotAll) lets '.' match newlines, and 'u' (unicode) enables full Unicode support."}},{"@type":"Question","name":"What are regex capture groups?","acceptedAnswer":{"@type":"Answer","text":"Capture groups are parts of a regex enclosed in parentheses (). They extract specific portions of a match. For example, (\\w+)@(\\w+) captures the username and domain separately from an email. Use (?:...) for non-capturing groups."}},{"@type":"Question","name":"Is this regex tester free?","acceptedAnswer":{"@type":"Answer","text":"Yes, RegexLab is completely free with no account required. It runs entirely in your browser using JavaScript's built-in RegExp engine, so your test data never leaves your device."}},{"@type":"Question","name":"Can I share my regex pattern with others?","acceptedAnswer":{"@type":"Answer","text":"Yes! Click the Share button to generate a URL that encodes your regex pattern, flags, and test string. Anyone who opens the link will see your exact setup restored automatically."}},{"@type":"Question","name":"What regex flavors does RegexLab support?","acceptedAnswer":{"@type":"Answer","text":"RegexLab uses your browser's native JavaScript RegExp engine (ES2018+), supporting lookbehind assertions, named capture groups, and Unicode property escapes."}}]}</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#0f1117;--surface:#1a1b26;--surface2:#24253a;--border:#3b3d57;--text:#c0caf5;--text2:#7982a9;--accent:#7aa2f7;--accent2:#bb9af7;--green:#9ece6a;--red:#f7768e;--orange:#e0af68;--yellow:#e0af68}
@@ -113,12 +114,25 @@ Visit https://regexlab.dev for more tools</textarea>
 <div id="matchesList" class="matches-list"></div>
 </div>
 
-<div class="ad-slot">📢 Ad Space — Your ad here</div>
+<div style="text-align:center;margin:12px 0">
+<button id="shareBtn" style="background:var(--accent);color:#fff;border:none;border-radius:8px;padding:10px 24px;font-size:.9rem;font-weight:600;cursor:pointer;transition:transform .2s" onclick="shareRegex()">🔗 Share</button>
+<span id="shareFeedback" style="color:var(--green);font-size:.85rem;margin-left:8px;display:none">✅ Link copied!</span>
+</div>
+
+<div class="panel">
+<div class="panel-title">📖 How to Use RegexLab</div>
+<div style="font-size:.88rem;color:var(--text2);line-height:1.7">
+<p><b style="color:var(--accent)">Step 1:</b> Type your regex pattern in the input field (without surrounding slashes).</p>
+<p style="margin-top:6px"><b style="color:var(--accent)">Step 2:</b> Toggle flags — <code>g</code> finds all matches, <code>i</code> ignores case, <code>m</code> enables multiline.</p>
+<p style="margin-top:6px"><b style="color:var(--accent)">Step 3:</b> Paste your test string. Matches highlight instantly with color-coded capture groups.</p>
+<p style="margin-top:6px"><b style="color:var(--accent)">Step 4:</b> Review match details below. Click <b>🔗 Share</b> to send your pattern to a teammate.</p>
+</div>
+</div>
 
 <div class="cta-banner">
-<h3>🚀 RegexLab Pro — Coming Soon</h3>
-<p>Save patterns, AI regex generator, team sharing, history & more</p>
-<a href="https://payhip.com/b/4FosR" target="_blank" rel="noopener" class="cta-btn">Join Waitlist →</a>
+<h3>🏦 Track Where Your Budget Drifts</h3>
+<p>DonFlow shows where your spending plan and reality diverge. Zero login, zero cloud, zero tracking — like this tool.</p>
+<a href="https://maxmini0214.github.io/donflow/?demo" target="_blank" rel="noopener" class="cta-btn">Try DonFlow Free →</a>
 </div>
 
 <div class="panel">
@@ -145,18 +159,28 @@ Visit https://regexlab.dev for more tools</textarea>
 </div>
 </div>
 
+<div class="panel">
+<div class="panel-title">❓ Frequently Asked Questions</div>
+<details style="margin-bottom:8px"><summary style="cursor:pointer;color:var(--accent);font-weight:600;font-size:.9rem;padding:6px 0">What is a regex tester?</summary><p style="color:var(--text2);font-size:.85rem;padding:6px 0 6px 12px">A regex tester lets you write regular expressions and instantly see matches against test text. RegexLab highlights matches in real-time, shows capture groups, and runs 100% in your browser.</p></details>
+<details style="margin-bottom:8px"><summary style="cursor:pointer;color:var(--accent);font-weight:600;font-size:.9rem;padding:6px 0">How do regex flags (g, i, m, s, u) work?</summary><p style="color:var(--text2);font-size:.85rem;padding:6px 0 6px 12px"><b>g</b> finds all matches. <b>i</b> ignores case. <b>m</b> treats each line separately. <b>s</b> lets <code>.</code> match newlines. <b>u</b> enables full Unicode support.</p></details>
+<details style="margin-bottom:8px"><summary style="cursor:pointer;color:var(--accent);font-weight:600;font-size:.9rem;padding:6px 0">What are capture groups?</summary><p style="color:var(--text2);font-size:.85rem;padding:6px 0 6px 12px">Parts enclosed in <code>()</code> that extract specific portions of a match. For example, <code>(\w+)@(\w+)</code> captures username and domain separately. Use <code>(?:...)</code> for non-capturing groups.</p></details>
+<details style="margin-bottom:8px"><summary style="cursor:pointer;color:var(--accent);font-weight:600;font-size:.9rem;padding:6px 0">Is this tool free and private?</summary><p style="color:var(--text2);font-size:.85rem;padding:6px 0 6px 12px">Yes. Completely free, no account required. All processing runs in your browser — your test data never leaves your device.</p></details>
+<details style="margin-bottom:8px"><summary style="cursor:pointer;color:var(--accent);font-weight:600;font-size:.9rem;padding:6px 0">Can I share my regex with my team?</summary><p style="color:var(--text2);font-size:.85rem;padding:6px 0 6px 12px">Click 🔗 Share to generate a URL encoding your pattern, flags, and test string. Anyone who opens the link sees your exact setup restored.</p></details>
+<details style="margin-bottom:8px"><summary style="cursor:pointer;color:var(--accent);font-weight:600;font-size:.9rem;padding:6px 0">What regex engine does RegexLab use?</summary><p style="color:var(--text2);font-size:.85rem;padding:6px 0 6px 12px">Your browser's native JavaScript RegExp engine (ES2018+), supporting lookbehind assertions, named capture groups, and Unicode property escapes.</p></details>
+</div>
+
 <h3 style="margin-top:2rem;margin-bottom:.5rem;color:var(--text)">🛠 More Developer Tools</h3>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-top:1rem">
 <a style="display:block;padding:.75rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--accent);text-decoration:none;text-align:center;font-weight:600" href="https://maxmini0214.github.io/json-formatter/">JSON Formatter</a>
+<a style="display:block;padding:.75rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--accent);text-decoration:none;text-align:center;font-weight:600" href="https://maxmini0214.github.io/keyword-mixer/">Keyword Mixer</a>
+<a style="display:block;padding:.75rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--accent);text-decoration:none;text-align:center;font-weight:600" href="https://maxmini0214.github.io/cron-parser/">Cron Parser</a>
 <a style="display:block;padding:.75rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--accent);text-decoration:none;text-align:center;font-weight:600" href="https://maxmini0214.github.io/base64-tool/">Base64 Encoder</a>
 <a style="display:block;padding:.75rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--accent);text-decoration:none;text-align:center;font-weight:600" href="https://maxmini0214.github.io/url-encoder/">URL Encoder</a>
 <a style="display:block;padding:.75rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--accent);text-decoration:none;text-align:center;font-weight:600" href="https://maxmini0214.github.io/hash-generator/">Hash Generator</a>
-<a style="display:block;padding:.75rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--accent);text-decoration:none;text-align:center;font-weight:600" href="https://maxmini0214.github.io/color-picker/">Color Picker</a>
-<a style="display:block;padding:.75rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--accent);text-decoration:none;text-align:center;font-weight:600" href="https://maxmini0214.github.io/lorem-ipsum/">Lorem Ipsum</a>
 </div>
 
 <footer>
-<p>RegexLab by <a href="https://github.com/maxseats" style="color:var(--accent);text-decoration:none">maxseats</a> — All processing happens in your browser. No data is ever sent to any server.</p>
+<p>RegexLab by <a href="https://github.com/maxmini0214" style="color:var(--accent);text-decoration:none">MaxMini</a> — All processing happens in your browser. No data is ever sent to any server.</p>
 </footer>
 </div>
 
@@ -209,6 +233,27 @@ function run(){
     return`<div class="match-item"><span class="idx">Match ${i+1}</span> @ index ${m.index}: <span class="val">${escapeHtml(m.value)}</span>${g}</div>`
   }).join('');
 }
+// Share function
+function shareRegex(){
+  const data={p:regexInput.value,f:getFlags(),t:testString.value};
+  const encoded=btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+  const url=location.origin+location.pathname+'?d='+encodeURIComponent(encoded);
+  navigator.clipboard.writeText(url).then(()=>{
+    const fb=document.getElementById('shareFeedback');
+    fb.style.display='inline';setTimeout(()=>fb.style.display='none',2000);
+  });
+}
+// Restore from URL
+(function(){
+  const params=new URLSearchParams(location.search);
+  const d=params.get('d');
+  if(d){try{
+    const data=JSON.parse(decodeURIComponent(escape(atob(d))));
+    if(data.p)regexInput.value=data.p;
+    if(data.t)testString.value=data.t;
+    if(data.f){flagBtns.forEach(b=>{b.classList.toggle('active',data.f.includes(b.dataset.flag))})}
+  }catch(e){}}
+})();
 run();
 </script>
 <script data-goatcounter="https://maxdevtools.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
